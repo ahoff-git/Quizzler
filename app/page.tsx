@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Timer from '../components/Timer';
+import HiddenAnswer from '../components/HiddenAnswer';
 import { QUIZZES, QuizKey } from '../quizzes';
 
 export default function Page() {
@@ -72,23 +73,20 @@ export default function Page() {
           const isGuessed = guessed.includes(item);
           const showItem = isGuessed || revealed;
           return (
-            <span
+            <div
               key={index}
               style={{
                 display: 'inline-block',
-                width: '100px',
-                height: '30px',
-                backgroundColor: showItem ? '#fff' : '#000',
-                color: '#000',
                 marginRight: '8px',
                 marginBottom: '8px',
-                lineHeight: '30px',
-                textAlign: 'center',
-                border: '1px solid #000',
               }}
             >
-              {showItem ? item : ''}
-            </span>
+              <HiddenAnswer
+                answer={item}
+                reveal={showItem}
+                orientation={index % 2 === 0 ? 'horizontal' : 'vertical'}
+              />
+            </div>
           );
         })}
       </div>
