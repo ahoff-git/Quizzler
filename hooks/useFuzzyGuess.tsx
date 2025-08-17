@@ -17,11 +17,13 @@ export function useFuzzyGuess() {
     quizItems: string[],
     guessed: string[]
   ): { accepted: string; correction?: string; isClose?: boolean } {
-    const normalized = guess.trim().toLowerCase();
-    if (!useFuzzy || quizItems.includes(normalized)) {
+    const normalize = (s: string) => s.trim().toLowerCase();
+    const normalized = normalize(guess);
+    const normalizedItems = quizItems.map(normalize);
+    if (!useFuzzy || normalizedItems.includes(normalized)) {
       return { accepted: normalized };
     }
-    const remaining = quizItems.filter((item) => !guessed.includes(item));
+    const remaining = normalizedItems.filter((item) => !guessed.includes(item));
     const matches = fuzzyMatch(remaining, normalized, 0.7);
     if (matches.length > 0) {
       return { accepted: matches[0], correction: matches[0] };
