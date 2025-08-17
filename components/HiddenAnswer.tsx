@@ -5,13 +5,16 @@ import { useEffect, useState } from 'react';
 interface HiddenAnswerProps {
   answer: string;
   reveal?: boolean;
-  orientation?: 'horizontal' | 'vertical';
+  offset?: {
+    horizontal?: number;
+    vertical?: number;
+  };
 }
 
 export default function HiddenAnswer({
   answer,
   reveal = false,
-  orientation = 'horizontal',
+  offset,
 }: HiddenAnswerProps) {
   const letters = answer.split('');
   const [revealedLetters, setRevealedLetters] = useState<boolean[]>(() =>
@@ -30,11 +33,14 @@ export default function HiddenAnswer({
     );
   };
 
+  const horizontalOffset = offset?.horizontal ?? 4;
+  const verticalOffset = offset?.vertical ?? 0;
+
   return (
     <div
       style={{
         display: 'flex',
-        flexDirection: orientation === 'vertical' ? 'column' : 'row',
+        flexDirection: 'row',
       }}
     >
       {letters.map((char, idx) => (
@@ -45,15 +51,14 @@ export default function HiddenAnswer({
             display: 'inline-block',
             width: '20px',
             height: '30px',
-            marginRight: orientation === 'horizontal' ? '4px' : 0,
-            marginBottom: orientation === 'vertical' ? '4px' : 0,
+            marginRight: horizontalOffset,
+            marginBottom: verticalOffset,
             backgroundColor: revealedLetters[idx] ? 'transparent' : '#000',
             color: '#000',
             textAlign: 'center',
             lineHeight: '30px',
             border: '1px solid #000',
-            cursor:
-              reveal || revealedLetters[idx] ? 'default' : 'pointer',
+            cursor: reveal || revealedLetters[idx] ? 'default' : 'pointer',
           }}
         >
           {revealedLetters[idx] ? char : ''}
