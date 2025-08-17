@@ -9,12 +9,16 @@ interface HiddenAnswerProps {
     horizontal?: number;
     vertical?: number;
   };
+  hintActive?: boolean;
+  onHintConsumed?: () => void;
 }
 
 export default function HiddenAnswer({
   answer,
   reveal = false,
   offset,
+  hintActive = false,
+  onHintConsumed,
 }: HiddenAnswerProps) {
   const letters = answer.split('');
   const [revealedLetters, setRevealedLetters] = useState<boolean[]>(() =>
@@ -28,9 +32,11 @@ export default function HiddenAnswer({
   }, [reveal, letters]);
 
   const revealLetter = (index: number) => {
+    if (!hintActive || revealedLetters[index]) return;
     setRevealedLetters((prev) =>
       prev.map((val, i) => (i === index ? true : val)),
     );
+    if (onHintConsumed) onHintConsumed();
   };
 
   const horizontalOffset = offset?.horizontal ?? 0;
@@ -58,7 +64,12 @@ export default function HiddenAnswer({
             textAlign: 'center',
             lineHeight: '30px',
             border: '1px solid #000',
-            cursor: reveal || revealedLetters[idx] ? 'default' : 'pointer',
+            cursor:
+              reveal || revealedLetters[idx]
+                ? 'default'
+                : hintActive
+                ? 'pointer'
+                : 'default',
           }}
         >
           {revealedLetters[idx] ? char : ''}

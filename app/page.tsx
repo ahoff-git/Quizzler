@@ -13,6 +13,8 @@ export default function Page() {
   const [revealed, setRevealed] = useState(false);
   const [timerRunning, setTimerRunning] = useState(false);
   const [timerResetKey, setTimerResetKey] = useState(0);
+  const [hintActive, setHintActive] = useState(false);
+  const [hintsUsed, setHintsUsed] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -23,6 +25,8 @@ export default function Page() {
     setTimerRunning(false);
     setTimerResetKey((k) => k + 1);
     setGuess('');
+    setHintActive(false);
+    setHintsUsed(0);
   }, [quizKey]);
 
   useEffect(() => {
@@ -69,6 +73,7 @@ export default function Page() {
       <Stats
         remaining={remaining}
         guesses={guessed.length}
+        hints={hintsUsed}
         running={timerRunning}
         resetKey={timerResetKey}
         key={quizKey}
@@ -86,6 +91,17 @@ export default function Page() {
         </button>
         <button
           type="button"
+          onClick={() => {
+            setHintActive(true);
+            setHintsUsed((h) => h + 1);
+          }}
+          disabled={hintActive || revealed}
+          style={{ marginLeft: '8px' }}
+        >
+          Hint
+        </button>
+        <button
+          type="button"
           onClick={() => setRevealed(true)}
           disabled={revealed}
           style={{ marginLeft: '8px' }}
@@ -100,9 +116,19 @@ export default function Page() {
           return (
             <HiddenAnswer
               key={index}
-              answer={item}
-              reveal={showItem}
-            />
+              style={{
+                display: 'inline-block',
+                marginRight: '8px',
+                marginBottom: '8px',
+              }}
+            >
+              <HiddenAnswer
+                answer={item}
+                reveal={showItem}
+                hintActive={hintActive}
+                onHintConsumed={() => setHintActive(false)}
+              />
+            </div>
           );
         })}
       </div>
