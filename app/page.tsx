@@ -59,6 +59,9 @@ export default function Page() {
           onChange={(e) => setGuess(e.target.value)}
           autoFocus
         />
+        <button type="submit" style={{ marginLeft: '8px' }}>
+          Guess
+        </button>
         <button
           type="button"
           onClick={() => setRevealed(true)}
