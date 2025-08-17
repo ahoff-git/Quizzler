@@ -1,3 +1,12 @@
-import loadWordList from '../utils/loadWordList';
-
-export default loadWordList('animals');
+export default [
+  'dog',
+  'cat',
+  'elephant',
+  'giraffe',
+  'zebra',
+  'lion',
+  'tiger',
+  'bear',
+  'kangaroo',
+  'dolphin',
+];

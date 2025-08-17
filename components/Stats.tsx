@@ -6,21 +6,23 @@ import StatItem from './StatItem';
 interface StatsProps {
   remaining: number;
   guesses: number;
-  hints: number;
-  running: boolean;
-  resetKey: number;
+  hints?: number;
+  running?: boolean;
+  resetKey?: number;
 }
 
 export default function Stats({
   remaining,
   guesses,
-  hints,
+  hints = 0,
   running,
   resetKey,
 }: StatsProps) {
   return (
     <div>
-      <Timer running={running} resetKey={resetKey} />
+      {running !== undefined && resetKey !== undefined && (
+        <Timer running={running} resetKey={resetKey} />
+      )}
       <StatItem label="Remaining" value={remaining} />
       <StatItem label="Guesses" value={guesses} />
       <StatItem label="Hints" value={hints} />
