@@ -1,0 +1,17 @@
+export default [
+  'lion',
+  'tiger',
+  'elephant',
+  'giraffe',
+  'zebra',
+  'bear',
+  'wolf',
+  'fox',
+  'monkey',
+  'penguin',
+  'kangaroo',
+  'panda',
+  'otter',
+  'koala',
+  'rabbit',
+];
