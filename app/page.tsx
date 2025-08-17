@@ -11,6 +11,8 @@ export default function Page() {
   const [guessed, setGuessed] = useState<string[]>([]);
   const [guess, setGuess] = useState('');
   const [revealed, setRevealed] = useState(false);
+  const [timerRunning, setTimerRunning] = useState(false);
+  const [timerResetKey, setTimerResetKey] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -18,6 +20,8 @@ export default function Page() {
     setQuizItems(shuffled);
     setGuessed([]);
     setRevealed(false);
+    setTimerRunning(false);
+    setTimerResetKey((k) => k + 1);
     setGuess('');
   }, [quizKey]);
 
@@ -27,6 +31,9 @@ export default function Page() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!timerRunning) {
+      setTimerRunning(true);
+    }
     const normalized = guess.trim().toLowerCase();
     if (
       quizItems.some((a) => a === normalized) &&
@@ -36,6 +43,12 @@ export default function Page() {
     }
     setGuess('');
   };
+
+  useEffect(() => {
+    if (revealed || guessed.length === quizItems.length) {
+      setTimerRunning(false);
+    }
+  }, [revealed, guessed, quizItems]);
 
   const remaining = revealed ? 0 : quizItems.length - guessed.length;
 
@@ -53,7 +66,14 @@ export default function Page() {
           </option>
         ))}
       </select>
-      <Stats key={quizKey} remaining={remaining} guesses={guessed.length} />
+      <Stats
+        remaining={remaining}
+        guesses={guessed.length}
+        running={timerRunning}
+        resetKey={timerResetKey}
+        key={quizKey}
+      />
+      <Stats  remaining={remaining} guesses={guessed.length} />
       <form onSubmit={handleSubmit}>
         <input
           ref={inputRef}

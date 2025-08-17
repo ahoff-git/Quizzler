@@ -2,9 +2,17 @@
 
 import { useEffect, useState } from 'react';
 
-export default function Timer() {
+interface TimerProps {
+  running: boolean;
+  resetKey: number;
+}
+
+export default function Timer({ running, resetKey }: TimerProps) {
   const [seconds, setSeconds] = useState(0);
-  const [running, setRunning] = useState(false);
+
+  useEffect(() => {
+    setSeconds(0);
+  }, [resetKey]);
 
   useEffect(() => {
     let interval: NodeJS.Timeout | undefined;
@@ -18,18 +26,5 @@ export default function Timer() {
     };
   }, [running]);
 
-  const start = () => setRunning(true);
-  const stop = () => setRunning(false);
-
-  return (
-    <div>
-      <div>Time: {seconds}s</div>
-      <button onClick={start} disabled={running}>
-        Start
-      </button>
-      <button onClick={stop} disabled={!running}>
-        Stop
-      </button>
-    </div>
-  );
+  return <div>Time: {seconds}s</div>;
 }
