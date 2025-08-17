@@ -17,6 +17,7 @@ export default function Page() {
   const [timerResetKey, setTimerResetKey] = useState(0);
   const [hintActive, setHintActive] = useState(false);
   const [hintsUsed, setHintsUsed] = useState(0);
+  const [showTypes, setShowTypes] = useState(false);
   const { apply: applyFuzzy, FuzzyToggle, CorrectedMessage } = useFuzzyGuess();
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -34,6 +35,7 @@ export default function Page() {
     setGuess('');
     setHintActive(false);
     setHintsUsed(0);
+    setShowTypes(false);
   }, [quizKey]);
 
   useEffect(() => {
@@ -104,16 +106,26 @@ export default function Page() {
         >
           Hint
         </button>
-        <button
-          type="button"
-          onClick={() => setRevealed(true)}
-          disabled={revealed}
-          style={{ marginLeft: '8px' }}
-        >
-          Give Up
-        </button>
-        <FuzzyToggle />
-      </form>
+          <button
+            type="button"
+            onClick={() => setRevealed(true)}
+            disabled={revealed}
+            style={{ marginLeft: '8px' }}
+          >
+            Give Up
+          </button>
+          {quizKey === 'pokemon' && (
+            <label style={{ marginLeft: '8px' }}>
+              <input
+                type="checkbox"
+                checked={showTypes}
+                onChange={(e) => setShowTypes(e.target.checked)}
+              />{' '}
+              Show types
+            </label>
+          )}
+          <FuzzyToggle />
+        </form>
       <CorrectedMessage />
       <div className="answers-grid" style={{ marginTop: '1rem' }}>
         {quizItems.map((item) => {
@@ -138,7 +150,7 @@ export default function Page() {
                 hintActive={hintActive}
                 onHintConsumed={() => setHintActive(false)}
               />
-              {quizKey === 'pokemon' && showItem && (
+              {quizKey === 'pokemon' && (showItem || showTypes) && (
                 <PokemonTypeIcons types={types} />
               )}
             </div>

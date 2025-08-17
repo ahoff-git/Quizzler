@@ -6,6 +6,8 @@ Select a quiz topic from the drop-down and type the names to guess them. If you 
 
 Pokemon type icons are provided by [pokemon-type-svg-icons](https://github.com/duiker101/pokemon-type-svg-icons).
 
+In the Pokémon quiz, toggle **Show types** to display each Pokémon's type icons next to its answer.
+
 ## Getting Started
 
 Install dependencies (requires internet access):
