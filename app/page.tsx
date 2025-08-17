@@ -22,6 +22,7 @@ export default function Page() {
     setRevealed(false);
     setTimerRunning(false);
     setTimerResetKey((k) => k + 1);
+    setGuess('');
   }, [quizKey]);
 
   useEffect(() => {
@@ -70,7 +71,9 @@ export default function Page() {
         guesses={guessed.length}
         running={timerRunning}
         resetKey={timerResetKey}
+        key={quizKey}
       />
+      <Stats  remaining={remaining} guesses={guessed.length} />
       <form onSubmit={handleSubmit}>
         <input
           ref={inputRef}
@@ -79,6 +82,9 @@ export default function Page() {
           onChange={(e) => setGuess(e.target.value)}
           autoFocus
         />
+        <button type="submit" style={{ marginLeft: '8px' }}>
+          Guess
+        </button>
         <button
           type="button"
           onClick={() => setRevealed(true)}
