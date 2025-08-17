@@ -8,6 +8,8 @@ Pokemon type icons are provided by [pokemon-type-svg-icons](https://github.com/d
 
 In the Pokémon quiz, toggle **Show types** to display each Pokémon's type icons next to its answer.
 
+Use **Hide guessed** if you want to remove answers you've already guessed from the list.
+
 ## Getting Started
 
 Install dependencies (requires internet access):
