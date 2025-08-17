@@ -1,9 +1,7 @@
 'use client';
 
 import Timer from './Timer';
-import RemainingAnswers from './RemainingAnswers';
-import TotalGuesses from './TotalGuesses';
-import HintsUsed from './HintsUsed';
+import StatItem from './StatItem';
 
 interface StatsProps {
   remaining: number;
@@ -23,9 +21,9 @@ export default function Stats({
   return (
     <div>
       <Timer running={running} resetKey={resetKey} />
-      <RemainingAnswers remaining={remaining} />
-      <TotalGuesses total={guesses} />
-      <HintsUsed total={hints} />
+      <StatItem label="Remaining" value={remaining} />
+      <StatItem label="Guesses" value={guesses} />
+      <StatItem label="Hints" value={hints} />
     </div>
   );
 }
