@@ -18,6 +18,7 @@ export default function Page() {
     setQuizItems(shuffled);
     setGuessed([]);
     setRevealed(false);
+    setGuess('');
   }, [quizKey]);
 
   useEffect(() => {
@@ -52,7 +53,7 @@ export default function Page() {
           </option>
         ))}
       </select>
-      <Stats remaining={remaining} guesses={guessed.length} />
+      <Stats key={quizKey} remaining={remaining} guesses={guessed.length} />
       <form onSubmit={handleSubmit}>
         <input
           ref={inputRef}
