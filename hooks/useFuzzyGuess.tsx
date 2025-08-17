@@ -16,15 +16,19 @@ export function useFuzzyGuess() {
     guess: string,
     quizItems: string[],
     guessed: string[]
-  ): { accepted: string; correction?: string } {
+  ): { accepted: string; correction?: string; isClose?: boolean } {
     const normalized = guess.trim().toLowerCase();
     if (!useFuzzy || quizItems.includes(normalized)) {
       return { accepted: normalized };
     }
     const remaining = quizItems.filter((item) => !guessed.includes(item));
-    const matches = fuzzyMatch(remaining, normalized, 0.8);
+    const matches = fuzzyMatch(remaining, normalized, 0.7);
     if (matches.length > 0) {
       return { accepted: matches[0], correction: matches[0] };
+    }
+    const closeMatches = fuzzyMatch(remaining, normalized, 0.6);
+    if (closeMatches.length > 0) {
+      return { accepted: normalized, isClose: true };
     }
     return { accepted: normalized };
   }
