@@ -84,7 +84,6 @@ export default function Page() {
               <HiddenAnswer
                 answer={item}
                 reveal={showItem}
-                orientation={index % 2 === 0 ? 'horizontal' : 'vertical'}
               />
             </div>
           );
