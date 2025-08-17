@@ -33,7 +33,7 @@ export default function HiddenAnswer({
     );
   };
 
-  const horizontalOffset = offset?.horizontal ?? 4;
+  const horizontalOffset = offset?.horizontal ?? 0;
   const verticalOffset = offset?.vertical ?? 0;
 
   return (
