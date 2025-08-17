@@ -41,8 +41,13 @@ export function fuzzyMatch(
 
   return words.filter((word) => {
     const normalized = normalize(word);
+    const maxLength = Math.max(normalized.length, target.length);
+    if (maxLength === 0) {
+      // Both strings are empty; treat as a perfect match.
+      return true;
+    }
     const distance = levenshtein(normalized, target);
-    const similarity = 1 - distance / Math.max(normalized.length, target.length);
+    const similarity = 1 - distance / maxLength;
     return similarity >= threshold;
   });
 }
