@@ -1,12 +1,3 @@
-export default [
-  'pizza',
-  'sushi',
-  'hamburger',
-  'spaghetti',
-  'curry',
-  'sandwich',
-  'salad',
-  'tacos',
-  'chocolate',
-  'pancake',
-];
+import loadWordList from '../utils/loadWordList';
+
+export default loadWordList('foods');
