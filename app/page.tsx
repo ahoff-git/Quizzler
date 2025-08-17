@@ -8,7 +8,7 @@ import PokemonTypeIcons from '../components/PokemonTypeIcons';
 import { QUIZZES, QuizKey, pokemonData } from '../quizzes';
 
 export default function Page() {
-  const [quizKey, setQuizKey] = useState<QuizKey>('animals');
+  const [quizKey, setQuizKey] = useState<QuizKey>('pokemon');
   const [quizItems, setQuizItems] = useState<string[]>([]);
   const [guessed, setGuessed] = useState<string[]>([]);
   const [guess, setGuess] = useState('');
