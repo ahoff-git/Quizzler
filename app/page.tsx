@@ -25,6 +25,7 @@ export default function Page() {
   const [quizAnimals, setQuizAnimals] = useState<string[]>([]);
   const [guessed, setGuessed] = useState<string[]>([]);
   const [guess, setGuess] = useState('');
+  const [revealed, setRevealed] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -60,10 +61,19 @@ export default function Page() {
           onChange={(e) => setGuess(e.target.value)}
           autoFocus
         />
+        <button
+          type="button"
+          onClick={() => setRevealed(true)}
+          disabled={revealed}
+          style={{ marginLeft: '8px' }}
+        >
+          Give Up
+        </button>
       </form>
       <div style={{ marginTop: '1rem' }}>
         {quizAnimals.map((animal, index) => {
           const isGuessed = guessed.includes(animal);
+          const showAnimal = isGuessed || revealed;
           return (
             <span
               key={index}
@@ -71,7 +81,7 @@ export default function Page() {
                 display: 'inline-block',
                 width: '100px',
                 height: '30px',
-                backgroundColor: isGuessed ? '#fff' : '#000',
+                backgroundColor: showAnimal ? '#fff' : '#000',
                 color: '#000',
                 marginRight: '8px',
                 marginBottom: '8px',
@@ -80,14 +90,16 @@ export default function Page() {
                 border: '1px solid #000',
               }}
             >
-              {isGuessed ? animal : ''}
+              {showAnimal ? animal : ''}
             </span>
           );
         })}
       </div>
       <p>
-        Correct: {guessed.length} | Remaining: {quizAnimals.length - guessed.length}
+        Correct: {guessed.length} | Remaining:{' '}
+        {revealed ? 0 : quizAnimals.length - guessed.length}
       </p>
+      {revealed && <p>You gave up! Answers revealed.</p>}
     </main>
   );
 }
