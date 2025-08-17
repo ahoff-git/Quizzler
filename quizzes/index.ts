@@ -3,11 +3,16 @@ import countries from './countries';
 import foods from './foods';
 import pokemonData from './pokemon';
 
-export const QUIZZES = {
-  animals,
-  countries,
-  foods,
-  pokemon: pokemonData.map((p) => p.name),
+interface QuizConfig {
+  items: string[];
+  shuffle: boolean;
+}
+
+export const QUIZZES: Record<string, QuizConfig> = {
+  animals: { items: animals, shuffle: true },
+  countries: { items: countries, shuffle: true },
+  foods: { items: foods, shuffle: true },
+  pokemon: { items: pokemonData.map((p) => p.name), shuffle: false },
 };
 
 export type QuizKey = keyof typeof QUIZZES;
