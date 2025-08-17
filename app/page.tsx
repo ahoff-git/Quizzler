@@ -15,7 +15,7 @@ export default function Page() {
 
   useEffect(() => {
     const shuffled = [...QUIZZES[quizKey]].sort(() => Math.random() - 0.5);
-    setQuizItems(shuffled.slice(0, 5));
+    setQuizItems(shuffled);
     setGuessed([]);
     setRevealed(false);
   }, [quizKey]);
