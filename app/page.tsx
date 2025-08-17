@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Stats from '../components/Stats';
 import HiddenAnswer from '../components/HiddenAnswer';
-import { useFuzzyGuess } from '../hooks/useFuzzyGuess';
+import { useGuessFeedback } from '../hooks/useGuessFeedback';
 import PokemonTypeIcons from '../components/PokemonTypeIcons';
 import { QUIZZES, QuizKey, pokemonData } from '../quizzes';
 
@@ -18,7 +18,11 @@ export default function Page() {
   const [hintActive, setHintActive] = useState(false);
   const [hintsUsed, setHintsUsed] = useState(0);
   const [showTypes, setShowTypes] = useState(false);
-  const { apply: applyFuzzy, FuzzyToggle, CorrectedMessage } = useFuzzyGuess();
+  const { handleGuess, FuzzyToggle, GuessMessage } = useGuessFeedback(
+    quizItems,
+    guessed,
+    setGuessed
+  );
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -47,10 +51,7 @@ export default function Page() {
     if (!timerRunning) {
       setTimerRunning(true);
     }
-    const accepted = applyFuzzy(guess, quizItems, guessed);
-    if (quizItems.some((a) => a === accepted) && !guessed.includes(accepted)) {
-      setGuessed([...guessed, accepted]);
-    }
+    handleGuess(guess);
     setGuess('');
   };
 
@@ -126,7 +127,7 @@ export default function Page() {
           )}
           <FuzzyToggle />
         </form>
-      <CorrectedMessage />
+      <GuessMessage />
       <div className="answers-grid" style={{ marginTop: '1rem' }}>
         {quizItems.map((item) => {
           const isGuessed = guessed.includes(item);
