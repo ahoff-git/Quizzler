@@ -6,17 +6,17 @@ import StatItem from './StatItem';
 interface StatsProps {
   remaining: number;
   guesses: number;
-  hints: number;
-  running: boolean;
-  resetKey: number;
+  hints?: number;
+  running?: boolean;
+  resetKey?: number;
 }
 
 export default function Stats({
   remaining,
   guesses,
-  hints,
-  running,
-  resetKey,
+  hints = 0,
+  running = false,
+  resetKey = 0,
 }: StatsProps) {
   return (
     <div>
