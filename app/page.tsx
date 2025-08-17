@@ -135,6 +135,10 @@ export default function Page() {
             quizKey === 'pokemon'
               ? pokemonData.find((p) => p.name === item)?.types ?? []
               : [];
+          const number =
+            quizKey === 'pokemon'
+              ? pokemonData.findIndex((p) => p.name === item) + 1
+              : undefined;
           return (
             <div
               key={item}
@@ -144,6 +148,11 @@ export default function Page() {
                 marginBottom: '8px',
               }}
             >
+              {quizKey === 'pokemon' && (
+                <span style={{ marginRight: '4px' }}>
+                  {`#${String(number).padStart(3, '0')}`}
+                </span>
+              )}
               <HiddenAnswer
                 answer={item}
                 reveal={showItem}
