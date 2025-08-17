@@ -3,8 +3,9 @@
 import { useEffect, useRef, useState } from 'react';
 import Stats from '../components/Stats';
 import HiddenAnswer from '../components/HiddenAnswer';
-import { QUIZZES, QuizKey } from '../quizzes';
 import { useFuzzyGuess } from '../hooks/useFuzzyGuess';
+import PokemonTypeIcons from '../components/PokemonTypeIcons';
+import { QUIZZES, QuizKey, pokemonData } from '../quizzes';
 
 export default function Page() {
   const [quizKey, setQuizKey] = useState<QuizKey>('animals');
@@ -115,6 +116,10 @@ export default function Page() {
         {quizItems.map((item) => {
           const isGuessed = guessed.includes(item);
           const showItem = isGuessed || revealed;
+          const types =
+            quizKey === 'pokemon'
+              ? pokemonData.find((p) => p.name === item)?.types ?? []
+              : [];
           return (
             <div
               key={item}
@@ -130,6 +135,9 @@ export default function Page() {
                 hintActive={hintActive}
                 onHintConsumed={() => setHintActive(false)}
               />
+              {quizKey === 'pokemon' && showItem && (
+                <PokemonTypeIcons types={types} />
+              )}
             </div>
           );
         })}

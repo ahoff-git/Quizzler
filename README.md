@@ -4,6 +4,8 @@ A basic Next.js site scaffold for Quizzler.
 
 Select a quiz topic from the drop-down and type the names to guess them. If you get stuck, hit the **Give Up** button to reveal all of the answers.
 
+Pokemon type icons are provided by [pokemon-type-svg-icons](https://github.com/duiker101/pokemon-type-svg-icons).
+
 ## Getting Started
 
 Install dependencies (requires internet access):
