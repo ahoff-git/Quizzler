@@ -26,10 +26,14 @@ export default function HiddenAnswer({
   );
 
   useEffect(() => {
+    setRevealedLetters(answer.split('').map(() => reveal));
+  }, [answer, reveal]);
+
+  useEffect(() => {
     if (reveal) {
-      setRevealedLetters(letters.map(() => true));
+      setRevealedLetters(answer.split('').map(() => true));
     }
-  }, [reveal, letters]);
+  }, [reveal, answer]);
 
   const revealLetter = (index: number) => {
     if (!hintActive || revealedLetters[index]) return;
