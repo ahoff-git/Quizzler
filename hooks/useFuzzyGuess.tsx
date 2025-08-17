@@ -3,27 +3,34 @@ import { fuzzyMatch } from '../utils/fuzzyMatch';
 
 export function useFuzzyGuess() {
   const [useFuzzy, setUseFuzzy] = useState(false);
-  const [corrected, setCorrected] = useState<string | null>(null);
+  const [message, setMessage] = useState<string | null>(null);
 
   useEffect(() => {
-    if (corrected) {
-      const t = setTimeout(() => setCorrected(null), 3000);
+    if (message) {
+      const t = setTimeout(() => setMessage(null), 3000);
       return () => clearTimeout(t);
     }
-  }, [corrected]);
+  }, [message]);
 
-  function apply(guess: string, quizItems: string[], guessed: string[]) {
+  function apply(
+    guess: string,
+    quizItems: string[],
+    guessed: string[]
+  ): { accepted: string; correction?: string } {
     const normalized = guess.trim().toLowerCase();
     if (!useFuzzy || quizItems.includes(normalized)) {
-      return normalized;
+      return { accepted: normalized };
     }
     const remaining = quizItems.filter((item) => !guessed.includes(item));
     const matches = fuzzyMatch(remaining, normalized, 0.8);
     if (matches.length > 0) {
-      setCorrected(matches[0]);
-      return matches[0];
+      return { accepted: matches[0], correction: matches[0] };
     }
-    return normalized;
+    return { accepted: normalized };
+  }
+
+  function showMessage(msg: string) {
+    setMessage(msg);
   }
 
   const FuzzyToggle = () => (
@@ -37,11 +44,9 @@ export function useFuzzyGuess() {
     </label>
   );
 
-  const CorrectedMessage = () =>
-    corrected ? (
-      <div style={{ marginTop: '8px' }}>Auto-corrected to: {corrected}</div>
-    ) : null;
+  const GuessMessage = () =>
+    message ? <div style={{ marginTop: '8px' }}>{message}</div> : null;
 
-  return { apply, FuzzyToggle, CorrectedMessage };
+  return { apply, FuzzyToggle, GuessMessage, showMessage };
 }
 
