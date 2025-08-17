@@ -114,14 +114,7 @@ export default function Page() {
           const isGuessed = guessed.includes(item);
           const showItem = isGuessed || revealed;
           return (
-            <HiddenAnswer
-              key={index}
-              style={{
-                display: 'inline-block',
-                marginRight: '8px',
-                marginBottom: '8px',
-              }}
-            >
+            <div key={index} className="answer-wrapper">
               <HiddenAnswer
                 answer={item}
                 reveal={showItem}

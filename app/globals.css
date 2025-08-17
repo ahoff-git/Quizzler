@@ -8,3 +8,9 @@ body {
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 8px;
 }
+
+.answer-wrapper {
+  display: inline-block;
+  margin-right: 8px;
+  margin-bottom: 8px;
+}
