@@ -15,12 +15,14 @@ export default function Stats({
   remaining,
   guesses,
   hints = 0,
-  running = false,
-  resetKey = 0,
+  running,
+  resetKey,
 }: StatsProps) {
   return (
     <div>
-      <Timer running={running} resetKey={resetKey} />
+      {running !== undefined && resetKey !== undefined && (
+        <Timer running={running} resetKey={resetKey} />
+      )}
       <StatItem label="Remaining" value={remaining} />
       <StatItem label="Guesses" value={guesses} />
       <StatItem label="Hints" value={hints} />

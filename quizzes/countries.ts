@@ -1,3 +1,12 @@
-import loadWordList from '../utils/loadWordList';
-
-export default loadWordList('countries');
+export default [
+  'canada',
+  'brazil',
+  'france',
+  'india',
+  'australia',
+  'kenya',
+  'japan',
+  'mexico',
+  'germany',
+  'egypt',
+];
