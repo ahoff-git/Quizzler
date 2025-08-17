@@ -21,9 +21,12 @@ export default function Page() {
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    const uniqueItems = Array.from(new Set(QUIZZES[quizKey]));
-    const shuffled = uniqueItems.sort(() => Math.random() - 0.5);
-    setQuizItems(shuffled);
+    const { items, shuffle } = QUIZZES[quizKey];
+    const uniqueItems = Array.from(new Set(items));
+    const randomized = shuffle
+      ? uniqueItems.sort(() => Math.random() - 0.5)
+      : uniqueItems;
+    setQuizItems(randomized);
     setGuessed([]);
     setRevealed(false);
     setTimerRunning(false);
