@@ -11,7 +11,11 @@ export function useGuessFeedback(
 
   const handleGuess = useCallback(
     (rawGuess: string) => {
-      const { accepted, correction } = applyFuzzy(rawGuess, quizItems, guessed);
+      const { accepted, correction, isClose } = applyFuzzy(
+        rawGuess,
+        quizItems,
+        guessed
+      );
       let msg = '';
       if (correction) {
         msg += `Auto-corrected to: ${correction}. `;
@@ -24,7 +28,7 @@ export function useGuessFeedback(
           msg += 'Correct!';
         }
       } else {
-        msg += 'Wrong answer!';
+        msg += isClose ? 'Close!' : 'Wrong answer!';
       }
       showMessage(msg.trim());
     },
