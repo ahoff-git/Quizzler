@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import Timer from '../components/Timer';
+import Stats from '../components/Stats';
 import HiddenAnswer from '../components/HiddenAnswer';
 import { QUIZZES, QuizKey } from '../quizzes';
 
@@ -36,6 +36,8 @@ export default function Page() {
     setGuess('');
   };
 
+  const remaining = revealed ? 0 : quizItems.length - guessed.length;
+
   return (
     <main>
       <h1>{quizKey.charAt(0).toUpperCase() + quizKey.slice(1)} Quiz</h1>
@@ -50,7 +52,7 @@ export default function Page() {
           </option>
         ))}
       </select>
-      <Timer />
+      <Stats remaining={remaining} guesses={guessed.length} />
       <form onSubmit={handleSubmit}>
         <input
           ref={inputRef}
@@ -89,10 +91,6 @@ export default function Page() {
           );
         })}
       </div>
-      <p>
-        Correct: {guessed.length} | Remaining:{' '}
-        {revealed ? 0 : quizItems.length - guessed.length}
-      </p>
       {revealed && <p>You gave up! Answers revealed.</p>}
     </main>
   );
