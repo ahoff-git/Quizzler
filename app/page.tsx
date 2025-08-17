@@ -73,7 +73,6 @@ export default function Page() {
         resetKey={timerResetKey}
         key={quizKey}
       />
-      <Stats  remaining={remaining} guesses={guessed.length} />
       <form onSubmit={handleSubmit}>
         <input
           ref={inputRef}
