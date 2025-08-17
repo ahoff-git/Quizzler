@@ -14,7 +14,7 @@ export default function PokemonTypeIcons({ types }: PokemonTypeIconsProps) {
           alt={`${type} type icon`}
           width={20}
           height={20}
-          style={{ backgroundColor: '#fff', borderRadius: '4px' }}
+          style={{ filter: 'invert(1)', borderRadius: '4px' }}
         />
       ))}
     </div>
