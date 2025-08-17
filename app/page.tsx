@@ -18,7 +18,8 @@ export default function Page() {
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    const shuffled = [...QUIZZES[quizKey]].sort(() => Math.random() - 0.5);
+    const uniqueItems = Array.from(new Set(QUIZZES[quizKey]));
+    const shuffled = uniqueItems.sort(() => Math.random() - 0.5);
     setQuizItems(shuffled);
     setGuessed([]);
     setRevealed(false);
@@ -110,12 +111,12 @@ export default function Page() {
         </button>
       </form>
       <div className="answers-grid" style={{ marginTop: '1rem' }}>
-        {quizItems.map((item, index) => {
+        {quizItems.map((item) => {
           const isGuessed = guessed.includes(item);
           const showItem = isGuessed || revealed;
           return (
-            <HiddenAnswer
-              key={index}
+            <div
+              key={item}
               style={{
                 display: 'inline-block',
                 marginRight: '8px',
