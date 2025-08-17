@@ -109,12 +109,12 @@ export default function Page() {
           Give Up
         </button>
       </form>
-      <div style={{ marginTop: '1rem' }}>
+      <div className="answers-grid" style={{ marginTop: '1rem' }}>
         {quizItems.map((item, index) => {
           const isGuessed = guessed.includes(item);
           const showItem = isGuessed || revealed;
           return (
-            <div
+            <HiddenAnswer
               key={index}
               style={{
                 display: 'inline-block',
