@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import Timer from '../components/Timer';
 
 const ALL_ANIMALS = [
   'lion',
@@ -50,6 +51,7 @@ export default function Page() {
   return (
     <main>
       <h1>Animal Quiz</h1>
+      <Timer />
       <form onSubmit={handleSubmit}>
         <input
           ref={inputRef}
