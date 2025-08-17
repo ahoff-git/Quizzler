@@ -6,7 +6,7 @@ interface PokemonTypeIconsProps {
 
 export default function PokemonTypeIcons({ types }: PokemonTypeIconsProps) {
   return (
-    <div style={{ display: 'inline-flex', gap: '4px', marginLeft: '4px' }}>
+    <div style={{ display: 'flex', gap: '4px', marginTop: '4px' }}>
       {types.map((type) => (
         <Image
           key={type}
@@ -14,6 +14,7 @@ export default function PokemonTypeIcons({ types }: PokemonTypeIconsProps) {
           alt={`${type} type icon`}
           width={20}
           height={20}
+          style={{ backgroundColor: '#fff', borderRadius: '4px' }}
         />
       ))}
     </div>

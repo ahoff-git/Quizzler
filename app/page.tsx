@@ -143,8 +143,7 @@ export default function Page() {
             <div
               key={item}
               style={{
-                display: 'inline-flex',
-                alignItems: 'center',
+                display: 'inline-block',
                 marginRight: '8px',
                 marginBottom: '8px',
               }}
@@ -154,15 +153,15 @@ export default function Page() {
                   {`#${String(number).padStart(3, '0')}`}
                 </span>
               )}
-              {quizKey === 'pokemon' && (showItem || showTypes) && (
-                <PokemonTypeIcons types={types} />
-              )}
               <HiddenAnswer
                 answer={item}
                 reveal={showItem}
                 hintActive={hintActive}
                 onHintConsumed={() => setHintActive(false)}
               />
+              {quizKey === 'pokemon' && (showItem || showTypes) && (
+                <PokemonTypeIcons types={types} />
+              )}
             </div>
           );
         })}
