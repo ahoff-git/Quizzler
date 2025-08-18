@@ -18,7 +18,7 @@ export default function Page() {
   const [hintActive, setHintActive] = useState(false);
   const [hintsUsed, setHintsUsed] = useState(0);
   const [showTypes, setShowTypes] = useState(false);
-  const [hideGuessed, setHideGuessed] = useState(false);
+  const [reduceGuessed, setReduceGuessed] = useState(false);
   const { handleGuess, FuzzyToggle, GuessMessage } = useGuessFeedback(
     quizItems,
     guessed,
@@ -41,7 +41,7 @@ export default function Page() {
     setHintActive(false);
     setHintsUsed(0);
     setShowTypes(false);
-    setHideGuessed(false);
+    setReduceGuessed(false);
   }, [quizKey]);
 
   useEffect(() => {
@@ -130,19 +130,25 @@ export default function Page() {
           <label style={{ marginLeft: '8px' }}>
             <input
               type="checkbox"
-              checked={hideGuessed}
-              onChange={(e) => setHideGuessed(e.target.checked)}
+              checked={reduceGuessed}
+              onChange={(e) => setReduceGuessed(e.target.checked)}
             />{' '}
-            Hide guessed
+            Reduce guessed answers
           </label>
           <FuzzyToggle />
         </form>
       <GuessMessage />
       <div className="answers-grid" style={{ marginTop: '1rem' }}>
-        {quizItems.map((item) => {
+        {quizItems.map((item, index) => {
           const isGuessed = guessed.includes(item);
-          if (hideGuessed && isGuessed && !revealed) {
-            return null;
+          if (reduceGuessed && isGuessed && !revealed) {
+            const prevGuessed =
+              index === 0 || guessed.includes(quizItems[index - 1]);
+            const nextGuessed =
+              index === quizItems.length - 1 || guessed.includes(quizItems[index + 1]);
+            if (prevGuessed && nextGuessed) {
+              return null;
+            }
           }
           const showItem = isGuessed || revealed;
           const types =
