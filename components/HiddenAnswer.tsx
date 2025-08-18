@@ -67,7 +67,7 @@ export default function HiddenAnswer({
             color: '#000',
             textAlign: 'center',
             lineHeight: '30px',
-            border: '1px solid #000',
+            border: revealedLetters[idx] ? 'none' : '1px solid #000',
             cursor:
               reveal || revealedLetters[idx]
                 ? 'default'
