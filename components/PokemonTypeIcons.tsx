@@ -12,6 +12,7 @@ export default function PokemonTypeIcons({ types }: PokemonTypeIconsProps) {
           key={type}
           src={`/type-icons/${type}.svg`}
           alt={`${type} type icon`}
+          title={type}
           width={20}
           height={20}
           style={{ filter: 'invert(1)', borderRadius: '4px' }}
